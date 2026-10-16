@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deepika K — Boarding now</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#e8dfca; --fg:#17212b; --teal:#0f6b6b; --red:#d6452b;
+  --tk:#f4ecda; --tkfg:#17212b; --line:rgba(23,33,43,.25);
+  --disp:'Barlow Condensed','Arial Narrow',Impact,sans-serif;
+  --mono:'IBM Plex Mono','Courier New',monospace;
+  --ease:cubic-bezier(.77,0,.18,1);
+}
+:root[data-theme="dark"]{ --bg:#0f161d; --fg:#efe6d2; --line:rgba(239,230,210,.25); --teal:#3fa6a0; --red:#ef6a4c; }
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font:400 1rem/1.65 var(--mono);transition:background .6s var(--ease),color .6s var(--ease);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;
+  background-image:repeating-linear-gradient(0deg,transparent 0 31px,var(--line) 31px 32px);mix-blend-mode:normal;opacity:.12}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.lbl{font:500 .72rem/1 var(--mono);letter-spacing:.18em;text-transform:uppercase}
+h1,h2,h3{font-family:var(--disp);font-weight:800;text-transform:uppercase;line-height:.88}
+
+/* opening */
+#open{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column}
+.band{flex:1;display:flex;align-items:center;justify-content:space-between;padding:0 20px;color:#f4ecda;
+  border-bottom:2px dashed rgba(244,236,218,.55);transition:transform .75s var(--ease)}
+.band:nth-child(1){background:#0f6b6b}.band:nth-child(2){background:#d6452b}.band:nth-child(3){background:#17212b;border:0}
+.band b{font:800 clamp(1.6rem,7vw,3.4rem)/1 var(--disp);text-transform:uppercase;letter-spacing:.02em}
+.band span{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase}
+#open.go .band:nth-child(1){transform:translateX(-105%)}
+#open.go .band:nth-child(2){transform:translateX(105%);transition-delay:.14s}
+#open.go .band:nth-child(3){transform:translateX(-105%);transition-delay:.28s}
+#skip{position:absolute;right:16px;bottom:16px;z-index:2;font:500 .72rem var(--mono);letter-spacing:.15em;text-transform:uppercase;
+  background:#f4ecda;color:#17212b;border:0;padding:10px 14px;cursor:pointer}
+#open.go #skip{opacity:0}
+
+/* shade switch */
+#shade{position:fixed;top:14px;right:14px;z-index:50;width:44px;height:60px;border:3px solid var(--fg);border-radius:22px / 28px;
+  background:#9ec7d4;cursor:pointer;overflow:hidden;padding:0;transition:background .6s}
+#shade i{position:absolute;left:0;right:0;top:0;height:100%;background:#d9d0bb;border-bottom:3px solid var(--fg);
+  transform:translateY(-62%);transition:transform .6s var(--ease)}
+#shade i::after{content:"";position:absolute;left:50%;bottom:6px;width:14px;height:4px;margin-left:-7px;background:var(--fg);border-radius:2px}
+#shade::before{content:"";position:absolute;right:9px;top:10px;width:9px;height:9px;border-radius:50%;background:#f4ecda;opacity:0;transition:opacity .6s}
+[data-theme="dark"] #shade{background:#0b1a2b}
+[data-theme="dark"] #shade::before{opacity:1}
+[data-theme="dark"] #shade i{transform:translateY(-82%)}
+#shade:focus-visible,.btn:focus-visible,#skip:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+
+/* landing */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:84px 0 48px;position:relative}
+.hero .lbl{color:var(--teal);margin-bottom:18px}
+.name{font-size:clamp(5rem,25vw,16rem);letter-spacing:-.01em}
+.name em{font-style:normal;color:var(--red)}
+.name span{display:block;overflow:hidden}
+.name span>b{display:block;font-weight:800;transform:translateY(105%);transition:transform .9s var(--ease)}
+.ready .name span>b{transform:none}
+.ready .name span:nth-child(2)>b{transition-delay:.12s}
+.tag{max-width:30ch;font-size:1.15rem;margin:26px 0 0;font-weight:500}
+.board{margin-top:22px;border:2px solid var(--fg);display:inline-flex;max-width:100%;font-size:.8rem}
+.board b{background:var(--fg);color:var(--bg);padding:8px 10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase}
+.board span{padding:8px 12px}
+.board span::after{content:"_";animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.btn{font:500 .8rem var(--mono);letter-spacing:.15em;text-transform:uppercase;text-decoration:none;padding:15px 22px;border:2px solid var(--fg);
+  position:relative;transition:transform .25s var(--ease),background .25s,color .25s}
+.btn.main{background:var(--fg);color:var(--bg)}
+.btn:hover{transform:translate(-3px,-3px);box-shadow:4px 4px 0 var(--red)}
+.mono-stamp{position:absolute;right:4px;top:96px;width:clamp(96px,26vw,170px);transform:rotate(-9deg);cursor:pointer;color:var(--red);
+  opacity:0;transition:opacity .4s .5s}
+.ready .mono-stamp{opacity:1;animation:thump .5s .6s var(--ease) both}
+@keyframes thump{from{transform:rotate(-9deg) scale(1.6);opacity:0}to{transform:rotate(-9deg) scale(1)}}
+
+/* sections */
+section{padding:84px 0;border-top:2px dashed var(--line)}
+.gate{display:grid;gap:36px}
+.sign{align-self:start}
+.sign .lbl{display:inline-block;background:var(--teal);color:#f4ecda;padding:8px 10px;margin-bottom:14px}
+.sign h2{font-size:clamp(3.4rem,13vw,7rem)}
+.story p{max-width:56ch;margin-bottom:1.2em}
+.story p:first-child::first-line{font-weight:500}
+.story .big{font:600 clamp(1.6rem,5vw,2.3rem)/1.1 var(--disp);text-transform:uppercase;max-width:20ch;margin-bottom:24px}
+@media(min-width:820px){.gate{grid-template-columns:300px 1fr;gap:56px}.sign{position:sticky;top:40px}.hero .wrap{padding-left:40px}}
+
+/* stamps */
+.row{margin-bottom:34px}
+.row h3{font-size:1rem;font-family:var(--mono);font-weight:500;letter-spacing:.18em;margin-bottom:14px}
+.stamps{display:flex;flex-wrap:wrap;gap:14px 12px}
+.stamp{--c:var(--teal);color:var(--c);border:3px double var(--c);padding:10px 14px 8px;font:500 .85rem/1.2 var(--mono);text-transform:uppercase;
+  letter-spacing:.1em;transform:rotate(var(--r,-3deg)) scale(1.5);opacity:0;transition:transform .45s var(--ease),opacity .3s}
+.stamp small{display:block;font-size:.6rem;opacity:.8;letter-spacing:.2em}
+.stamp.round{border-radius:50px}
+.stamp.l{--c:var(--red)}.stamp.c{--c:var(--fg)}
+.in .stamp{transform:rotate(var(--r,-3deg));opacity:.92}
+.stamp:nth-child(2){--r:2deg;transition-delay:.1s}.stamp:nth-child(3){--r:-1.5deg;transition-delay:.2s}.stamp:nth-child(4){--r:3deg;transition-delay:.3s}
+
+/* tickets */
+.tickets{display:grid;gap:26px}
+.ticket{background:var(--tk);color:var(--tkfg);display:grid;grid-template-columns:1fr 92px;position:relative;box-shadow:0 2px 0 rgba(0,0,0,.18);
+  opacity:0;transform:translateY(30px) rotate(var(--t,0deg));transition:opacity .6s,transform .8s var(--ease)}
+.in .ticket,.ticket.in{opacity:1;transform:rotate(var(--t,0deg))}
+.ticket:nth-child(1){--t:-.6deg}.ticket:nth-child(2){--t:.5deg;margin-left:clamp(0px,4vw,40px)}.ticket:nth-child(3){--t:-.3deg}
+.ticket::before,.ticket::after{content:"";position:absolute;right:81px;width:22px;height:22px;border-radius:50%;background:var(--bg);transition:background .6s var(--ease)}
+.ticket::before{top:-11px}.ticket::after{bottom:-11px}
+.main-t{padding:18px 18px 18px;border-top:8px solid var(--c,var(--teal))}
+.main-t .lbl{opacity:.7;display:flex;justify-content:space-between}
+.main-t h3{font-size:2.3rem;margin:12px 0 10px}
+.main-t h3 i{font-style:normal;color:var(--c,var(--teal))}
+.main-t p{font-size:.85rem;line-height:1.55}
+.stub{border-left:2px dashed rgba(23,33,43,.4);padding:18px 8px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;text-align:center;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase}
+.stub b{writing-mode:vertical-rl;font:800 1.5rem var(--disp);letter-spacing:.06em;color:var(--c,var(--teal))}
+.bars{width:48px;height:34px;background:repeating-linear-gradient(90deg,#17212b 0 2px,transparent 2px 4px,#17212b 4px 5px,transparent 5px 8px,#17212b 8px 10px,transparent 10px 11px)}
+
+/* beyond */
+.facts{display:grid;gap:0;list-style:none;padding:0}
+.facts li{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.facts .lbl{color:var(--red)}
+.facts p{font-size:1rem}
+
+/* contact */
+.contact h2{font-size:clamp(4rem,20vw,12rem)}
+.contact h2 em{font-style:normal;color:var(--red)}
+.links{margin-top:34px;display:grid;gap:0;max-width:560px}
+.links a{display:flex;justify-content:space-between;padding:18px 0;border-bottom:2px solid var(--fg);text-decoration:none;font:600 1.6rem var(--disp);text-transform:uppercase;transition:padding .3s var(--ease),color .3s}
+.links a span{font:400 .75rem var(--mono);letter-spacing:.12em;align-self:center;text-transform:none}
+.links a:hover{padding-left:14px;color:var(--red)}
+footer{padding:32px 0 48px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* reveal + egg */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .8s var(--ease)}
+.rv.in{opacity:1;transform:none}
+#plane{position:fixed;top:30%;left:-160px;width:130px;z-index:60;color:var(--red);pointer-events:none}
+#plane.fly{animation:fly 3.2s var(--ease) forwards}
+@keyframes fly{to{transform:translate(calc(100vw + 340px),-120px) rotate(-8deg)}}
+#upg{position:fixed;left:50%;top:44%;z-index:61;pointer-events:none;color:var(--red);background:var(--tk);border:4px double var(--red);padding:14px 22px;
+  font:800 clamp(1.5rem,7vw,2.6rem) var(--disp);text-transform:uppercase;transform:translate(-50%,-50%) rotate(-6deg) scale(1.6);opacity:0;text-align:center;line-height:1}
+#upg small{display:block;font:400 .65rem var(--mono);letter-spacing:.2em;margin-top:6px}
+#upg.show{animation:upg 2.6s var(--ease) forwards}
+@keyframes upg{12%{opacity:1;transform:translate(-50%,-50%) rotate(-6deg) scale(1)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) rotate(-6deg) scale(1)}}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important;transition-delay:0s!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<div id="open" aria-label="Opening animation">
+  <div class="band"><b>Boarding pass</b><span>Passenger</span></div>
+  <div class="band"><b>Deepika K</b><span>Gate 01 · Seat 1A</span></div>
+  <div class="band"><b>Now boarding &rarr;</b><span>Dept. IT</span></div>
+  <button id="skip">Skip</button>
+</div>
+
+<button id="shade" aria-label="Switch between day flight and night flight" title="Day / night flight"><i></i></button>
+
+<main>
+<header class="hero" id="top">
+  <svg class="mono-stamp" id="mono" viewBox="0 0 200 200" role="img" aria-label="DK monogram stamp">
+    <defs><path id="ring" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs>
+    <circle cx="100" cy="100" r="94" fill="none" stroke="currentColor" stroke-width="5"/>
+    <circle cx="100" cy="100" r="58" fill="none" stroke="currentColor" stroke-width="2.5"/>
+    <text font-family="IBM Plex Mono,monospace" font-size="14.5" letter-spacing="3.2" fill="currentColor"><textPath href="#ring">CLEARED FOR TAKE-OFF · FIRST YEAR · IT ·</textPath></text>
+    <text x="100" y="118" text-anchor="middle" font-family="Barlow Condensed,Impact,sans-serif" font-weight="800" font-size="66" fill="currentColor">DK</text>
+  </svg>
+  <div class="wrap">
+    <p class="lbl">Flight 01 · Chennai &rarr; Everywhere</p>
+    <h1 class="name" aria-label="Deepika K"><span><b>Deepika</b></span><span><b>K<em>.</em></b></span></h1>
+    <p class="tag">First-year IT student, learning to build things that feel looked after.</p>
+    <p class="board"><b>Now</b><span>learning JavaScript, one small project at a time</span></p>
+    <div class="btns">
+      <a class="btn main" href="#about">Explore</a>
+      <a class="btn" href="#contact">Say hi</a>
+    </div>
+  </div>
+</header>
+
+<section id="about"><div class="wrap gate">
+  <div class="sign rv"><span class="lbl">Gate A1 · About</span><h2>Who's<br>flying</h2></div>
+  <div class="story rv">
+    <p class="big">I like making things work, and then making them look right.</p>
+    <p>Hi, I'm Deepika. I'm in the first year of my B.Tech in Information Technology, which means most days I'm somewhere between "I understand this" and "why is this printing undefined?" I've learned to enjoy both.</p>
+    <p>What pulled me towards tech was [add your own reason here: a first program, a game, a website you couldn't stop poking at]. I'm still early on the route, and I'd rather say that honestly than pretend otherwise.</p>
+    <p>I care about small details: spacing, a button that responds when you touch it, an error message that sounds like a human wrote it. This site is my first proper attempt at putting those together.</p>
+  </div>
+</div></section>
+
+<section id="skills"><div class="wrap gate">
+  <div class="sign rv"><span class="lbl">Gate B2 · Skills</span><h2>Passport<br>stamps</h2></div>
+  <div>
+    <div class="row rv"><h3>Comfortable</h3><div class="stamps">
+      <div class="stamp round">HTML<small>Cleared</small></div><div class="stamp round">CSS<small>Cleared</small></div><div class="stamp round">Git basics<small>Cleared</small></div></div></div>
+    <div class="row rv"><h3>Learning</h3><div class="stamps">
+      <div class="stamp l">JavaScript<small>In transit</small></div><div class="stamp l">C programming<small>In transit</small></div><div class="stamp l">Data structures<small>In transit</small></div></div></div>
+    <div class="row rv"><h3>Curious about</h3><div class="stamps">
+      <div class="stamp c">SQL<small>On the board</small></div><div class="stamp c">React<small>On the board</small></div><div class="stamp c">Linux<small>On the board</small></div></div></div>
+  </div>
+</div></section>
+
+<section id="journey"><div class="wrap gate">
+  <div class="sign rv"><span class="lbl">Gate C3 · Journey</span><h2>My<br>tickets</h2></div>
+  <div class="tickets">
+    <article class="ticket" style="--c:var(--teal)">
+      <div class="main-t"><span class="lbl"><span>Departed</span><span>Made</span></span>
+        <h3>Idea <i>&rarr;</i> This site</h3>
+        <p>My first portfolio, built by hand in one HTML file. [Add a class project, a small program or anything you've finished.]</p></div>
+      <div class="stub"><span>Seat 1A</span><b>MADE</b><div class="bars"></div></div>
+    </article>
+    <article class="ticket" style="--c:var(--red)">
+      <div class="main-t"><span class="lbl"><span>In flight</span><span>Learning</span></span>
+        <h3>Basics <i>&rarr;</i> Real code</h3>
+        <p>Getting solid with JavaScript and C, and learning to read my own code a week later without wincing.</p></div>
+      <div class="stub"><span>Seat 2B</span><b>NOW</b><div class="bars"></div></div>
+    </article>
+    <article class="ticket" style="--c:var(--fg)">
+      <div class="main-t"><span class="lbl"><span>Boarding soon</span><span>Next</span></span>
+        <h3>Sketch <i>&rarr;</i> Shipped app</h3>
+        <p>I want to build something other people actually use: [your dream project, a campus tool, a small game, an app for your family].</p></div>
+      <div class="stub"><span>Seat 3C</span><b>NEXT</b><div class="bars"></div></div>
+    </article>
+  </div>
+</div></section>
+
+<section id="beyond"><div class="wrap gate">
+  <div class="sign rv"><span class="lbl">Gate D4 · Beyond code</span><h2>Carry-<br>on</h2></div>
+  <ul class="facts rv">
+    <li><span class="lbl">Hobby</span><p>[Your hobby: music, drawing, cricket, reading]</p></li>
+    <li><span class="lbl">Fun fact</span><p>[Something people don't guess about you]</p></li>
+    <li><span class="lbl">On repeat</span><p>[A song, a show or a book you keep returning to]</p></li>
+    <li><span class="lbl">Window or aisle</span><p>[Pick one, and say why]</p></li>
+  </ul>
+</div></section>
+
+<section id="contact" class="contact"><div class="wrap">
+  <p class="lbl rv" style="color:var(--teal)">Final call · Gate E5</p>
+  <h2 class="rv">Say<br>hi<em>.</em></h2>
+  <div class="links rv">
+    <a href="mailto:you@example.com">Email <span>you@example.com</span></a>
+    <a href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noopener">LinkedIn <span>/in/your-handle</span></a>
+    <a href="https://github.com/your-handle" target="_blank" rel="noopener">GitHub <span>/your-handle</span></a>
+  </div>
+  <footer><span>Deepika K · Dept. of IT</span><span>Safe travels</span></footer>
+</div></section>
+</main>
+
+<svg id="plane" viewBox="0 0 120 60" aria-hidden="true"><path d="M2 30 L118 4 L84 56 L62 38 L42 48 L44 32 Z" fill="currentColor"/><path d="M44 32 L118 4 L62 38 Z" fill="#17212b" opacity=".25"/></svg>
+<div id="upg" aria-live="polite">Upgraded<small>Seat 1A · first class</small></div>
+
+<script>
+(function(){
+  var root=document.documentElement, body=document.body;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* theme: day / night flight */
+  var saved=null; try{saved=localStorage.getItem('dk-theme')}catch(e){}
+  var dark=saved?saved==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+  function setTheme(d){root.setAttribute('data-theme',d?'dark':'light');try{localStorage.setItem('dk-theme',d?'dark':'light')}catch(e){}}
+  setTheme(dark);
+  document.getElementById('shade').addEventListener('click',function(){dark=!dark;setTheme(dark)});
+
+  /* opening: plays once per visit */
+  var open=document.getElementById('open'), done=false;
+  function ready(){body.classList.add('ready')}
+  function finish(){
+    if(done)return; done=true; open.classList.add('go'); ready();
+    setTimeout(function(){open.remove()},1300);
+    try{sessionStorage.setItem('dk-seen','1')}catch(e){}
+  }
+  var seen=false; try{seen=sessionStorage.getItem('dk-seen')}catch(e){}
+  if(reduce||seen){open.remove();ready();done=true}
+  else{
+    setTimeout(finish,950);
+    document.getElementById('skip').addEventListener('click',function(){
+      done=true; open.style.transition='opacity .25s'; open.style.opacity=0; ready();
+      setTimeout(function(){open.remove()},260);
+    });
+  }
+
+  /* reveal on scroll */
+  var els=document.querySelectorAll('.rv,.row,.tickets,.ticket');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+    els.forEach(function(el){io.observe(el)});
+  }else els.forEach(function(el){el.classList.add('in')});
+  document.querySelectorAll('.ticket').forEach(function(t,i){t.style.transitionDelay=(i*.12)+'s'});
+
+  /* easter egg: tap the DK stamp three times */
+  var n=0,timer,plane=document.getElementById('plane'),upg=document.getElementById('upg');
+  document.getElementById('mono').addEventListener('click',function(){
+    n++; clearTimeout(timer); timer=setTimeout(function(){n=0},900);
+    if(n>=3){
+      n=0; plane.classList.remove('fly'); upg.classList.remove('show'); void plane.offsetWidth;
+      plane.classList.add('fly'); upg.classList.add('show');
+    }
+  });
+})();
+</script>
+</body>
+</html>
